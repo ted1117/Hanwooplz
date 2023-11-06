@@ -1,6 +1,4 @@
-hanwooplz_env/
 hanwooplz_project/hanwooplz_app/migrations/
-hanwooplz_project/hanwooplz_project/secrets.json
 hanwooplz_project/hanwooplz_app/static/js/tinymce
 
 # Created by https://www.toptal.com/developers/gitignore/api/django,macos,windows,visualstudiocode
@@ -15,6 +13,7 @@ local_settings.py
 db.sqlite3
 db.sqlite3-journal
 media
+secrets.json
 
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
 # in your Git repository. Update and uncomment the following line accordingly.
