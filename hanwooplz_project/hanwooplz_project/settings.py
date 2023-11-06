@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'hanwooplz_app',
     'rest_framework',
-    'tinymce',
+    # 'tinymce',
     'channels',
     'channels_redis',
 ]

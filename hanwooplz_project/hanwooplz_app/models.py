@@ -2,7 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.contrib.postgres.fields import ArrayField
-from tinymce.models import HTMLField
+# from tinymce.models import HTMLField
 
 # Create your models here.
 
@@ -31,10 +31,11 @@ class Post(models.Model):
     author = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=100, default='Untitled')
-    content = HTMLField()
+    # content = HTMLField()
+    content = models.TextField()
 
-class PostPnP(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+class PostPnP(Post):
+    # post = models.ForeignKey(Post, on_delete=models.CASCADE)
     start_date = models.DateField()
     end_date = models.DateField()
     tech_stack = ArrayField(models.CharField(max_length=20))
@@ -44,9 +45,11 @@ class PostPnP(models.Model):
         abstract = True
 
 class PostPortfolio(PostPnP):
+    portfolio_id = models.AutoField(primary_key=True)
     members = models.IntegerField(default=1)
 
 class PostProject(PostPnP):
+    project_id = models.AutoField(primary_key=True)
     status = models.IntegerField(default=1)
     '''
     - 모집중단: 0
@@ -60,17 +63,19 @@ class ProjectMembers(models.Model):
     project = models.ForeignKey(PostProject, on_delete=models.CASCADE)
     members = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
 
-class PostQnA(models.Model):
+class PostQnA(Post):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
 
     class Meta:
         abstract = True
 
-class PostQuestion(PostQnA):
+class PostQuestion(Post):
+    question_id = models.AutoField(primary_key=True)
     keyword = ArrayField(models.CharField(max_length=20))
     like = models.ManyToManyField(UserProfile, through="QuestionLike")
 
-class PostAnswer(PostQnA):
+class PostAnswer(Post):
+    answer_id = models.AutoField(primary_key=True, default=1)
     question = models.ForeignKey(PostQuestion, on_delete=models.CASCADE)
     like = models.ManyToManyField(UserProfile, through="AnswerLike")
 
